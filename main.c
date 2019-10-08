@@ -1,26 +1,6 @@
 #include "llist.h"
 #include <stdio.h>
 /*
- * QUESTION ANSWERS
- *
- * 1: It is necesary for the list to be passed as a pointer so that all of the
- * methods are working with the same list so that if multiple operations are
- * done, the same list gets updated by all of them. The list needs to be passed
- * by pointer since structs always are, the only exception is with basic
- * functions.
- * 2: In order to protect the user against themselves, we could
- * create methods for moving to the next or previous node where we check if it
- * is viable for the user and if it isn't we can throw an error to stop them.
- * 3: If just the head and tail were assigned to null, the list would still
- * exist in memory because it was never freed and that would cause memory leaks.
- * 4: The data items the iterator would need to store are the two nodes which it
- * would be between at any given time, this would allow it to know how to move
- * forward or backward between the nodes. The iterator would supply the user
- * with the ability to traverse the list well provide information about the
- * nodes it is between and where it is in the list.
- */
-
-/*
  * This method is inspired by Dr.Rothe's code and it is used to print out
  * all of the elements in the list
  */
