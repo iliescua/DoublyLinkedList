@@ -2,18 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
- * This metod is used to initialize the list with the head and tail both NULL
- */
+// This method is used to initialize the list with the head and tail both NULL
 void llInit(list *myList) {
   myList->head = NULL;
   myList->tail = NULL;
 }
 
-/*
- * This metod is iterates through te list and a count variable keeps track of
- * size This method returns the size of the list
- */
+// This method is iterates through te list and returns the the size
 int llSize(list *myList) {
   int count = 0;
   node *temp = myList->head;
@@ -24,18 +19,11 @@ int llSize(list *myList) {
   return count;
 }
 
-/*
- * This metod is used to add an element to the front of the list
- * It takes in the list and the char array which need to be stored
- * It checks to make sure that the list is populated and if it isn't then
- * it has both the tail and head node point to the same location
- * This method makes sure to replace the head pointer with the new node
- * This method returns 1 if successful and 0 if it failed
- */
+// This method is used to add elements to the head
 int llPushFront(list *myList, char *toStore) {
   if (toStore != NULL) {
-    node *newNode = (node*)malloc(sizeof(node));
-    char *strPoint = (char*)malloc(sizeof(strlen(toStore) + 1));
+    node *newNode = (node *)malloc(sizeof(node));
+    char *strPoint = (char *)malloc(sizeof(strlen(toStore) + 1));
     strcpy(strPoint, toStore);
     newNode->string = strPoint;
     if (myList->head == NULL) {
@@ -55,17 +43,13 @@ int llPushFront(list *myList, char *toStore) {
   }
 }
 
-/*
- * This metod is used to remove elements from the the front of the list
- * It also makes sure to replace where the head is
- * The method returns 1 f successful and 0 if it failed
- */
+// This method removes the head
 int llPopFront(list *myList) {
   if (myList->head != NULL) {
     node *temp = myList->head->next;
     free(myList->head->string);
     free(myList->head);
-	myList->head = temp;
+    myList->head = temp;
     myList->head->prev = NULL;
     return 1;
   } else {
@@ -73,18 +57,11 @@ int llPopFront(list *myList) {
   }
 }
 
-/*
- * This metod is used to add an element to the back of the list
- * It takes in the list and the char array which need to be stored
- * It checks to make sure that the list is populated and if it isn't then
- * it has both the tail and head node point to the same location
- * This method makes sure to replace the tail pointer with the new node
- * This method returns 1 if successful and 0 if it failed
- */
+// This method is used to add elements to the tail
 int llPushBack(list *myList, char *toStore) {
   if (toStore != NULL) {
-    node *newNode = (node*)malloc(sizeof(node));
-    char *strPoint = (char*)malloc(sizeof(strlen(toStore) + 1));
+    node *newNode = (node *)malloc(sizeof(node));
+    char *strPoint = (char *)malloc(sizeof(strlen(toStore) + 1));
     strcpy(strPoint, toStore);
     newNode->string = strPoint;
     if (myList->head == NULL) {
@@ -104,11 +81,7 @@ int llPushBack(list *myList, char *toStore) {
   }
 }
 
-/*
- * This metod is used to remove elements from the the back of the list
- * It also makes sure to replace where the tail is
- * The method returns 1 f successful and 0 if it failed
- */
+// This method removes the tail
 int llPopBack(list *myList) {
   if (myList->head != NULL) {
     node *temp = myList->tail->prev;
@@ -122,10 +95,7 @@ int llPopBack(list *myList) {
   }
 }
 
-/*
- * This metod is used to clear the list and remove all of the elements from the
- * list
- */
+// This method is used to clear out the entire list
 void llClear(list *myList) {
   node *temp;
   while (myList->head != NULL) {
@@ -138,18 +108,11 @@ void llClear(list *myList) {
   myList->tail = NULL;
 }
 
-/*
- * This metod is used to insert a node in the list
- * The parameters the method takes is the list, the node after which a new node
- * should be added and the string value to be stored This method needs to check
- * to make sure that if the specified node is the tail node that the tail
- * pointer gets replaced with the new node This method returns 1 if successful
- * and 0 if failed
- */
+// This method adds elements after a specified node
 int llInsertAfter(list *myList, node *insNode, char *toStore) {
-  if (myList->head != NULL) {
-    node *newNode = (node*)malloc(sizeof(node));
-    char *strPoint = (char*)malloc(sizeof(strlen(toStore) + 1));
+  if ((myList->head != NULL) && (insNode != NULL)) {
+    node *newNode = (node *)malloc(sizeof(node));
+    char *strPoint = (char *)malloc(sizeof(strlen(toStore) + 1));
     strcpy(strPoint, toStore);
     newNode->string = strPoint;
     node *temp = insNode->next;
@@ -170,18 +133,11 @@ int llInsertAfter(list *myList, node *insNode, char *toStore) {
   }
 }
 
-/*
- * This metod is used to insert a node in the list
- * The parameters the method takes is the list, the node after which a new node
- * should be added and the string value to be stored This method needs to check
- * to make sure that if the specified node is the head node that the head
- * pointer gets replaced with the new node This method returns 1 if successful
- * and 0 if failed
- */
+// This method adds elements before a specified node
 int llInsertBefore(list *myList, node *insNode, char *toStore) {
-  if (myList->head != NULL) {
-    node *newNode = (node*)malloc(sizeof(node));
-    char *strPoint = (char*)malloc(sizeof(strlen(toStore) + 1));
+  if ((myList->head != NULL) && (insNode != NULL)) {
+    node *newNode = (node *)malloc(sizeof(node));
+    char *strPoint = (char *)malloc(sizeof(strlen(toStore) + 1));
     strcpy(strPoint, toStore);
     newNode->string = strPoint;
     node *temp = insNode->prev;
@@ -202,13 +158,7 @@ int llInsertBefore(list *myList, node *insNode, char *toStore) {
   }
 }
 
-/*
- * This metod is used to remove a specifeid node from the list
- * This method takes as parameters the list and the node that is to be removed
- * This method needs to make sure that if the specified node is either the head
- * or the tail of the list that the pointers for each respectively also get
- * replaced, else it removes the specified node This method simply returns 0
- */
+// This method removes a specified node
 int llRemove(list *myList, node *rmvNode) {
   node *temp;
   if (rmvNode == myList->head) {
